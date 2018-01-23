@@ -156,7 +156,7 @@ $next_id = $biggest_id['0']['id']+1;
     <div style="width: 100%; background-color: white; padding: 30px 0 100px; margin: 0 auto;">
       <h1 style="text-align: center; color: black;">Добавление товара</h1>
       <div style="width: 40%; margin: 0 auto;">
-          <?php echo "$msg" . '<br>'; ?>
+          <?php echo "$msg" . '<br><br>'; ?>
 
           <form action="addarticlefin.php/#40" method="post" enctype="multipart/form-data">
             <input type="file" name="upFile[]"  multiple><br><br>
