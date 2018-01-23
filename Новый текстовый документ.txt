@@ -1,0 +1,7 @@
+новинки
+
+каталог? cat
+	maincat
+	new
+	page
+	
