@@ -8,7 +8,7 @@
       </div>
       <div>
         <img class="image_logo" src="/img/index/mapa.png"  alt="" >
-        <p> Адрес офиса: Украина, г. Черкассы, ул. Остафия<br> Дашковича, 19 ТРЦ "Крещатик Сити" </p>
+        <p> Адрес офиса: Украина, г. Черкассы, ул. Остафия<br> Дашковича, 19 ТРЦ "Крещатик Сити -2 етаж" </p>
       </div>
       <div>
         <img class="image_logo" src="/img/index/telephone.png"  alt="">   
