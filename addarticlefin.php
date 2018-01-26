@@ -9,10 +9,14 @@ $connection->exec("SET NAMES UTF8");
 
 
 $categories_choosed= "...";
+// самый большой id из базы и делаем следующий номер
+  $query = $connection->prepare("SELECT `id` FROM `catalog` ORDER BY `id` DESC LIMIT 1" );
+  $query->execute();
+  $biggest_id= $query->fetchAll();
+$next_id = $biggest_id['0']['id']+1;
 
   if(count($_POST)  > 0){
 // екранизация всех полученых данных
-    $id = htmlspecialchars($_POST['id']);
     $name = htmlspecialchars($_POST['name']);
     $brand = htmlspecialchars($_POST['brand']);
     $price = htmlspecialchars($_POST['price']);
@@ -53,7 +57,7 @@ $categories_choosed= "...";
     }else{
 
 // проверка на существование папки, если да удалить ее с содержимым
-$structure = "img/catalog/item (". $id .")/";
+$structure = "img/catalog/item (". $next_id .")/";
 if (file_exists($structure)) {
     $files = glob($structure."*");
     $c = count($files);
@@ -79,7 +83,7 @@ if (!mkdir($structure, 0777, true)) {
     $main_categories = $categ_arr['0']['main_categories'];
 // вставка товара в базу
       $query = $connection->prepare("INSERT INTO `catalog` SET id=:id, name=:name, brand=:brand, main_categories=:main_categories, categories=:categories, price=:price, description=:description ");
-      $params = array('id'=> $id, 'name' => $name , 'brand'=> $brand, 'price'=> $price, 'categories'=> $categories, 'main_categories'=> $main_categories, 'description'=> $description);
+      $params = array('id'=> $next_id, 'name' => $name , 'brand'=> $brand, 'price'=> $price, 'categories'=> $categories, 'main_categories'=> $main_categories, 'description'=> $description);
       $query -> execute($params);
 
 // перемещение файла
@@ -102,7 +106,7 @@ if (!mkdir($structure, 0777, true)) {
               $errors[] = 'Файл должен быть менее 2ух мегабайт';
             }
             if (empty($errors) == true) {
-              $file_directory  = "img/catalog/item (". $id .")/".$i.".".$file_ext;//здесь имя файла
+              $file_directory  = "img/catalog/item (". $next_id .")/".$i.".".$file_ext;//здесь имя файла
               move_uploaded_file($file_tmp, "$file_directory");  
             }else{
               print $errors;
@@ -110,7 +114,6 @@ if (!mkdir($structure, 0777, true)) {
            }
         }
 // очистка переменных 
-      $id = false;
       $name = false;
       $brand = false;
       $price = false;
@@ -128,11 +131,6 @@ if (!mkdir($structure, 0777, true)) {
 $query = $connection->prepare("SELECT `name_categorie` FROM `categories`" );
 $query->execute();
 $all_categoriees_arr= $query->fetchAll();
-// самый большой id из базы и делаем следующий номер
-  $query = $connection->prepare("SELECT `id` FROM `catalog` ORDER BY `id` DESC LIMIT 1" );
-  $query->execute();
-  $biggest_id= $query->fetchAll();
-$next_id = $biggest_id['0']['id']+1;
 ?>
 
 
